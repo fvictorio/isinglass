@@ -1,0 +1,32 @@
+section {
+  text-align: justify;
+  max-width: 30em;
+  margin-left: 5em;
+}
+
+section.ig-show span[data-ig-kind="dict"] {
+  background-color: #ffff0075;
+}
+
+section.ig-show span[data-ig-kind="comment"] {
+  background-color: #00ffff75;
+}
+
+section.ig-show span[data-ig-kind="reference"] {
+  background-color: #c070e075;
+}
+
+#ig-note {
+  position: absolute;
+  top: 0;
+  right: 0;
+  max-width: 15em;
+  padding: 0.5em;
+  margin-right: 2em;
+  border: solid 1px black;
+  font-size: small;
+}
+
+#ig-note.hidden {
+  display: none;
+}
