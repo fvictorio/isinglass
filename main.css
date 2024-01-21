@@ -4,15 +4,15 @@ section {
   margin-left: 5em;
 }
 
-section.ig-show span[data-ig-kind="dict"] {
+section.ig-show span[data-ig-kind="dict"], section span[data-ig-kind="dict"].ig-show {
   background-color: #ffff0075;
 }
 
-section.ig-show span[data-ig-kind="comment"] {
+section.ig-show span[data-ig-kind="comment"], section span[data-ig-kind="comment"].ig-show {
   background-color: #00ffff75;
 }
 
-section.ig-show span[data-ig-kind="reference"] {
+section.ig-show span[data-ig-kind="reference"], section span[data-ig-kind="reference"].ig-show {
   background-color: #c070e075;
 }
 

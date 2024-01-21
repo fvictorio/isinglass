@@ -1,9 +1,11 @@
 const notes = {
   dict: {
-    ["loom"]: "<i>loom:</i> To appear indistinctly, e.g. when seen on the horizon or through the murk.",
+    ["loom"]:
+      "<i>loom:</i> To appear indistinctly, e.g. when seen on the horizon or through the murk.",
     ["spleen"]: "<i>spleen:</i> Bad mood.",
     ["on-shore"]: "<i>on shore:</i> On land, as opposed to being at sea.",
-    ["hypo"]: "<i>hypo:</i> Melancholy; a fit of hypochondria; a morbid depression.",
+    ["hypo"]:
+      "<i>hypo:</i> Melancholy; a fit of hypochondria; a morbid depression.",
     ["city-of-the-manhattoes"]: `<a href="https://en.wikipedia.org/wiki/Manhattan" target="_blank">Manhattan</a>`,
     ["surf"]: `<i>surf:</i> Waves that break on an ocean shoreline.`,
     ["waterward"]: `<i>waterward:</i> In the direction of the water.`,
@@ -41,10 +43,14 @@ const notes = {
     ["patagonia"]: `<a href="https://en.wikipedia.org/wiki/Patagonia" target="_blank">Patagonia</a>, geographical region in the southern end of South America.`,
   },
   comment: {
-    ["call-me-ishmael"]: "This is the first of many character names that come from the Bible.<br/><br/>Ishmael was the son of Abraham and Hagar, the handmaiden of Abraham's wife.<br/><br/>One interpretation of this name choice is that Moby-Dick's Ishmael is also an outcast from his family. While this is never explicitly said, it seems in character.",
-    ["pistol-and-ball"]: "<i>Ball</i> here means bullet. Ishmael is saying that getting to sea is his substitute for commiting suicide.",
-    ["are-the-green-fields-gone"]: "Ishmael wonders why are these landsmen here, and ironically asks why aren't they spending their time in the green fields. The end of this paragraph rhymes with the end of the next paragraph, where he also gives an implausible explanation.",
-    ["the-needles-of-the-compasses"]: "See comment at the end of the previous paragraph.",
+    ["call-me-ishmael"]:
+      "This is the first of many character names that come from the Bible.<br/><br/>Ishmael was the son of Abraham and Hagar, the handmaiden of Abraham's wife.<br/><br/>One interpretation of this name choice is that Moby-Dick's Ishmael is also an outcast from his family. While this is never explicitly said, it seems in character.",
+    ["pistol-and-ball"]:
+      "<i>Ball</i> here means bullet. Ishmael is saying that getting to sea is his substitute for commiting suicide.",
+    ["are-the-green-fields-gone"]:
+      "Ishmael wonders why are these landsmen here, and ironically asks why aren't they spending their time in the green fields. The end of this paragraph rhymes with the end of the next paragraph, where he also gives an implausible explanation.",
+    ["the-needles-of-the-compasses"]:
+      "See comment at the end of the previous paragraph.",
   },
   reference: {
     ["cato"]: `Cato refers to <a href="https://en.wikipedia.org/wiki/Cato_the_Younger" target="_blank">Cato the Younger</a>, who killed himself with his sword when he was about to be defeated by Julius Caesar.`,
@@ -64,18 +70,23 @@ const notes = {
     ["two-and-two"]: `A reference to animals going in "two and two unto Noah into <a href="https://en.wikipedia.org/wiki/Noah%27s_Ark" target="_blank">the ark</a>"; see <a href="https://www.biblegateway.com/passage/?search=Genesis%207&version=KJV#en-KJV-169" target="_blank">Genesis 7.9</a>.`,
     ["one-grand-hooded-phantom"]: `The white whale: Moby Dick.`,
   },
-}
+};
 
 // run function when dot is pressed down
 document.addEventListener("keydown", function (event) {
   if (event.keyCode === 84) {
     const section = document.querySelector("section");
-    const highlightsShown = section.classList.contains("ig-show")
+    const highlightsShown = section.classList.contains("ig-show");
 
     if (highlightsShown) {
       section.classList.remove("ig-show");
       const note = document.querySelector("#ig-note");
       note.classList.add("hidden");
+
+      const highlights = document.querySelectorAll("[data-ig-kind]");
+      highlights.forEach((highlight) => {
+        highlight.classList.remove("ig-show");
+      });
     } else {
       section.classList.add("ig-show");
     }
@@ -88,17 +99,32 @@ window.addEventListener("load", function () {
   highlights.forEach((highlight) => {
     highlight.addEventListener("click", function () {
       const section = document.querySelector("section");
-      const highlightsShown = section.classList.contains("ig-show")
-      if (!highlightsShown) {
-        return;
-      }
+      const highlightsShown = section.classList.contains("ig-show");
 
       const note = document.querySelector("#ig-note");
-      const noteKind = highlight.dataset.igKind
+      const highlightShown = this.classList.contains("ig-show");
+
+      document.querySelectorAll("[data-ig-kind]").forEach((highlight) => {
+        highlight.classList.remove("ig-show");
+      });
+
+      if (!highlightsShown) {
+        if (highlightShown) {
+          note.classList.add("hidden");
+          this.classList.remove("ig-show");
+          return;
+        } else {
+          this.classList.add("ig-show");
+        }
+      }
+
+      const noteKind = highlight.dataset.igKind;
       const noteKey = highlight.dataset.igKey;
       const noteContent = notes?.[noteKind]?.[noteKey];
       if (!noteContent) {
-        window.alert(`No note of kind '${noteKind}' and key '${noteKey}' found`);
+        window.alert(
+          `No note of kind '${noteKind}' and key '${noteKey}' found`
+        );
         return;
       }
       note.classList.remove("hidden");
@@ -106,6 +132,6 @@ window.addEventListener("load", function () {
 
       // set the top to the same value as the top of the highlight
       note.style.top = highlight.offsetTop + "px";
-    })
+    });
   });
 });
