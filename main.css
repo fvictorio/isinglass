@@ -1,25 +1,40 @@
-section {
+#main-container {
+  display: flex;
+  flex-direction: column;
   text-align: justify;
-  max-width: 30em;
-  margin-left: 5em;
 }
 
-section.ig-show span[data-ig-kind="dict"], section span[data-ig-kind="dict"].ig-show {
+.row {
+  display: flex;
+}
+
+.row > * {
+  flex: 1 100%;
+}
+
+#intro {
+  font-size: small;
+}
+
+#text-container.ig-show span[data-ig-kind="dict"], #text-container span[data-ig-kind="dict"].ig-show {
   background-color: #ffff0075;
 }
 
-section.ig-show span[data-ig-kind="comment"], section span[data-ig-kind="comment"].ig-show {
+#text-container.ig-show span[data-ig-kind="comment"], #text-container span[data-ig-kind="comment"].ig-show {
   background-color: #00ffff75;
 }
 
-section.ig-show span[data-ig-kind="reference"], section span[data-ig-kind="reference"].ig-show {
+#text-container.ig-show span[data-ig-kind="reference"], #text-container span[data-ig-kind="reference"].ig-show {
   background-color: #c070e075;
+}
+
+#settings, #notes-container {
+  padding-left: 2em;
 }
 
 #ig-note {
   position: absolute;
   top: 0;
-  right: 0;
   max-width: 15em;
   padding: 0.5em;
   margin-right: 2em;

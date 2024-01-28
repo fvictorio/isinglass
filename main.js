@@ -75,7 +75,7 @@ const notes = {
 // run function when dot is pressed down
 document.addEventListener("keydown", function (event) {
   if (event.keyCode === 84) {
-    const section = document.querySelector("section");
+    const section = document.querySelector("#text-container");
     const highlightsShown = section.classList.contains("ig-show");
 
     if (highlightsShown) {
@@ -98,7 +98,7 @@ window.addEventListener("load", function () {
 
   highlights.forEach((highlight) => {
     highlight.addEventListener("click", function () {
-      const section = document.querySelector("section");
+      const section = document.querySelector("#text-container");
       const highlightsShown = section.classList.contains("ig-show");
 
       const note = document.querySelector("#ig-note");
