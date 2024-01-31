@@ -46,9 +46,16 @@ h2 {
   }
 }
 
+#small-screen-container {
+  display: none;
+}
+
 @media screen and (max-width: 768px) {
-  #main-container {
-    display: none;
+  #small-screen-container {
+    display: block;
+    text-align: center;
+    padding: 1em;
+    border: solid 1px red;
   }
 }
 
