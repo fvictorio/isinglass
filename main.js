@@ -1,3 +1,12 @@
+/* ~~Dear reader~~
+ *
+ * You should know that I know this code sucks. But writing spaghetti
+ * vanilla js now and then is good for your soul.
+ *
+ * Love,
+ *   Me.
+ */
+
 const notes = {
   dict: {
     ["loom"]:
@@ -72,46 +81,110 @@ const notes = {
   },
 };
 
+let showDefinitions = false;
+let showReferences = false;
+let showPersonalComments = false;
+
+let allHighlightsShown = false;
+
+function onCheckboxChanged() {
+  const showDefinitionsCheckbox = document.querySelector("#show-definitions");
+  const showReferencesCheckbox = document.querySelector("#show-references");
+  const showPersonalCommentsCheckbox = document.querySelector(
+    "#show-personal-comments"
+  );
+
+  allHighlightsShown = false;
+  cancelParagraphTransitions();
+  hideHiglights();
+  hideNote();
+
+  showDefinitions = showDefinitionsCheckbox.checked;
+  showReferences = showReferencesCheckbox.checked;
+  showPersonalComments = showPersonalCommentsCheckbox.checked;
+}
+
+function hideHiglights() {
+  document
+    .querySelectorAll("span.ig-show")
+    .forEach((e) => e.classList.remove("ig-show"));
+}
+
+function hideNote() {
+  const note = document.querySelector("#ig-note");
+  note.classList.add("hidden");
+}
+
+function cancelParagraphTransitions() {
+  document
+    .querySelectorAll(".tmp-ig-hide")
+    .forEach((e) => e.classList.remove("tmp-ig-hide"));
+}
+
+function isHighlightEnabled(highlight) {
+  const kind = highlight.dataset.igKind;
+  return (
+    (kind === "comment" && showPersonalComments) ||
+    (kind === "reference" && showReferences) ||
+    (kind === "dict" && showDefinitions)
+  );
+}
+
+function getAllHighlightsIn(element) {
+  return [...element.querySelectorAll("[data-ig-kind]")].filter(
+    isHighlightEnabled
+  );
+}
+
 // run function when dot is pressed down
 document.addEventListener("keydown", function (event) {
-  if (event.keyCode === 84) {
-    const section = document.querySelector("#text-container");
-    const highlightsShown = section.classList.contains("ig-show");
+  if (event.key === "t" || event.key === "T") {
+    allHighlightsShown = !allHighlightsShown;
 
-    if (highlightsShown) {
-      section.classList.remove("ig-show");
-      const note = document.querySelector("#ig-note");
-      note.classList.add("hidden");
+    cancelParagraphTransitions();
 
-      const highlights = document.querySelectorAll("[data-ig-kind]");
-      highlights.forEach((highlight) => {
-        highlight.classList.remove("ig-show");
+    const allHighlights = getAllHighlightsIn(document);
+
+    if (allHighlightsShown) {
+      allHighlights.forEach((highlight) => {
+        highlight.classList.add("ig-show");
       });
     } else {
-      section.classList.add("ig-show");
+      allHighlights.forEach((highlight) => {
+        highlight.classList.remove("ig-show");
+      });
+
+      hideNote();
     }
   }
 });
 
 window.addEventListener("load", function () {
+  // initialize the variables
+  onCheckboxChanged();
+
   const highlights = document.querySelectorAll("[data-ig-kind]");
 
   highlights.forEach((highlight) => {
-    highlight.addEventListener("click", function () {
-      const section = document.querySelector("#text-container");
-      const highlightsShown = section.classList.contains("ig-show");
+    highlight.addEventListener("click", function (evt) {
+      if (!isHighlightEnabled(this)) {
+        return;
+      }
+
+      cancelParagraphTransitions();
 
       const note = document.querySelector("#ig-note");
-      const highlightShown = this.classList.contains("ig-show");
+      const thisHighlightShown = this.classList.contains("ig-show");
 
-      document.querySelectorAll("[data-ig-kind]").forEach((highlight) => {
-        highlight.classList.remove("ig-show");
-      });
+      if (!allHighlightsShown) {
+        document.querySelectorAll("[data-ig-kind]").forEach((highlight) => {
+          highlight.classList.remove("ig-show");
+        });
 
-      if (!highlightsShown) {
-        if (highlightShown) {
+        if (thisHighlightShown) {
           note.classList.add("hidden");
           this.classList.remove("ig-show");
+          evt.stopPropagation();
           return;
         } else {
           this.classList.add("ig-show");
@@ -125,6 +198,7 @@ window.addEventListener("load", function () {
         window.alert(
           `No note of kind '${noteKind}' and key '${noteKey}' found`
         );
+        evt.stopPropagation();
         return;
       }
       note.classList.remove("hidden");
@@ -132,6 +206,48 @@ window.addEventListener("load", function () {
 
       // set the top to the same value as the top of the highlight
       note.style.top = highlight.offsetTop + "px";
+
+      evt.stopPropagation();
     });
+  });
+
+  const paragraphs = document.querySelectorAll("#text-container p");
+
+  paragraphs.forEach((paragraph) => {
+    let timeout;
+    paragraph.addEventListener("click", function () {
+      if (allHighlightsShown) {
+        return;
+      }
+
+      hideHiglights();
+      hideNote();
+
+      const paragraphHighlights = getAllHighlightsIn(paragraph);
+
+      paragraphHighlights.forEach((highlight) => {
+        highlight.classList.add("tmp-ig-show");
+        highlight.classList.remove("tmp-ig-hide");
+      });
+
+      setTimeout(() => {
+        paragraphHighlights.forEach((highlight) => {
+          highlight.classList.add("tmp-ig-hide");
+          highlight.classList.remove("tmp-ig-show");
+        });
+      });
+
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        paragraphHighlights.forEach((highlight) => {
+          highlight.classList.remove("tmp-ig-hide");
+        });
+      }, 3000);
+    });
+  });
+
+  const checkboxes = settings.querySelectorAll("input[type=checkbox]");
+  checkboxes.forEach((checkbox) => {
+    checkbox.addEventListener("change", onCheckboxChanged);
   });
 });

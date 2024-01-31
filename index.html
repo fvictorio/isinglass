@@ -2,38 +2,58 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Moby-Dick</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isinglass</title>
+    <link rel="icon" type="image/png" href="favicon.png" />
     <link href="main.css" rel="stylesheet" />
   </head>
   <body>
     <div id="main-container">
       <div id="intro-row" class="row">
+        <div class="filler"></div>
         <div id="intro">
           <p>
             Click anything you don't understand: if it has a note, it will show
-            it. Click it again to hide it.
+            up. You can also press <code>T</code> to toggle all the highlights.
           </p>
-
           <p>
-            You can also press <code>T</code> to toggle highlights, and click on
-            them to open the corresponding note.
-          </p>
-          <p style="font-size: small">
             <span style="background-color: #ffff0075">Yellow</span> highlights
             are definitions.
-          </p>
-          <p style="font-size: small">
             <span style="background-color: #c070e075">Lavender</span> highlights
             are references.
-          </p>
-          <p style="font-size: small">
             <span style="background-color: #00ffff75">Cyan</span> highlights are
-            personal comments by me.
+            personal comments.
+          </p>
+          <p>
+            Heavily inspired by
+            <a href="http://www.powermobydick.com/" target="_blank"
+              >Power Moby-Dick</a
+            >. Text taken from
+            <a
+              href="https://standardebooks.org/ebooks/herman-melville/moby-dick"
+              target="_blank"
+              >Standard Ebooks</a
+            >.
           </p>
         </div>
-        <div id="settings"></div>
+        <div id="settings">
+          <div style="font-weight: bold">Settings</div>
+          <div>
+            <input type="checkbox" id="show-definitions" checked />
+            <label for="show-definitions">Show definitions</label>
+          </div>
+          <div>
+            <input type="checkbox" id="show-references" checked />
+            <label for="show-references">Show references</label>
+          </div>
+          <div>
+            <input type="checkbox" id="show-personal-comments" />
+            <label for="show-personal-comments">Show personal comments</label>
+          </div>
+        </div>
       </div>
       <div id="text-row" class="row">
+        <div class="filler"></div>
         <div id="text-container">
           <h2>
             Chapter I<br /><span data-ig-kind="dict" data-ig-key="loom"
@@ -383,5 +403,14 @@
     </div>
 
     <script src="main.js"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7N26802D9C"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-7N26802D9C');
+    </script>
   </body>
 </html>
