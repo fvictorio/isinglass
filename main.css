@@ -1,9 +1,21 @@
 body {
   font-size: 16px;
+  background-color: #f8f8f8;
 }
 
 h2 {
   text-align: center;
+}
+
+#intro,
+#settings {
+  font-family: "Lato", sans-serif;
+}
+
+#text-container,
+#ig-note {
+  font-family: "Libre Baskerville", serif;
+  line-height: 1.4;
 }
 
 #main-container {
@@ -25,7 +37,7 @@ h2 {
 
 .row #text-container,
 .row #intro {
-  flex: 1 200%;
+  flex: 1 225%;
 }
 
 @media only screen and (max-width: 1400px) {
@@ -42,8 +54,13 @@ h2 {
 
 #intro,
 #text-container {
-  font-size: 1.5em;
+  font-size: 1.2em;
   max-width: 45rem;
+}
+
+#text-container {
+  border: solid 3px #f0f0f0;
+  padding: 1em;
 }
 
 #intro,
