@@ -15,6 +15,7 @@ const notes = {
     ["on-shore"]: "<i>on shore:</i> On land, as opposed to being at sea.",
     ["hypo"]:
       "<i>hypo:</i> Melancholy; a fit of hypochondria; a morbid depression.",
+    ["ball"]: "<i>ball:</i> Bullet.",
     ["city-of-the-manhattoes"]: `<a href="https://en.wikipedia.org/wiki/Manhattan" target="_blank">Manhattan</a>`,
     ["surf"]: `<i>surf:</i> Waves that break on an ocean shoreline.`,
     ["waterward"]: `<i>waterward:</i> In the direction of the water.`,

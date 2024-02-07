@@ -32,12 +32,12 @@ h2 {
 }
 
 .row > * {
-  flex: 1 100%;
+  flex: 1;
 }
 
 .row #text-container,
 .row #intro {
-  flex: 1 225%;
+  flex: 3;
 }
 
 @media only screen and (max-width: 1400px) {
