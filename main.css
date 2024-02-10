@@ -7,10 +7,6 @@ body {
   background-color: #f8f8f8;
 }
 
-#text-container {
-  margin-bottom: 10em;
-}
-
 h2 {
   text-align: center;
 }
@@ -142,4 +138,11 @@ h2 {
 
 #ig-note.hidden {
   display: none;
+}
+
+#feedback {
+  padding-top: 5em;
+  padding-bottom: 2.5em;
+  text-align: center;
+  font-size: small;
 }
