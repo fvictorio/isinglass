@@ -1,6 +1,14 @@
 body {
   font-size: 16px;
+  background-color: #eee;
+}
+
+#text-container, #ig-note {
   background-color: #f8f8f8;
+}
+
+#text-container {
+  margin-bottom: 10em;
 }
 
 h2 {
@@ -66,7 +74,6 @@ h2 {
 }
 
 #text-container {
-  border: solid 3px #f0f0f0;
   padding: 1em;
 }
 
@@ -74,6 +81,10 @@ h2 {
 #settings,
 #ig-note {
   font-size: 1em;
+}
+
+#ig-note img {
+  max-width: 100%;
 }
 
 #text-container p span[data-ig-kind="dict"].tmp-ig-hide {
